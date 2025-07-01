@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <title>Produktberater</title>
+</head>
+<body>
+  <h1>Intelligente Produktsuche</h1>
+  <p>Schreib, was du kaufen möchtest:</p>
+  <textarea id="prompt" rows="4" cols="50" placeholder="z. B. Ich suche einen klappbaren Campingstuhl..."></textarea>
+  <br><br>
+  <button onclick="holeEmpfehlung()">Empfehlung anzeigen</button>
+  <h2>Empfehlungen:</h2>
+  <div id="antwort" style="white-space: pre-wrap; margin-top: 20px;"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
