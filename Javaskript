@@ -1,0 +1,42 @@
+async function holeEmpfehlung() {
+  const promptText = document.getElementById("prompt").value;
+  const ausgabe = document.getElementById("antwort");
+  ausgabe.innerText = "Lade Empfehlungen...";
+
+  const fullPrompt = `
+Du bist ein Einkaufsberater. Ein Nutzer beschreibt, was er kaufen möchte. 
+Gib 3 konkrete Produktempfehlungen aus. Jede mit:
+- Name
+- Begründung (z. B. Preis-Leistung, günstig, Testsieger)
+- Suchbegriff für Idealo oder Amazon
+
+Nutzeranfrage:
+"${promptText}"
+`;
+
+  const apiKey = "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";
+
+  try {
+    const response = await fetch("https://api.openai.com/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${apiKey}`
+      },
+      body: JSON.stringify({
+        model: "gpt-3.5-turbo",
+        messages: [{ role: "user", content: fullPrompt }],
+        temperature: 0.7
+      })
+    });
+
+    const data = await response.json();
+    if (data.choices) {
+      ausgabe.innerText = data.choices[0].message.content;
+    } else {
+      ausgabe.innerText = "Fehler: Keine Antwort erhalten.";
+    }
+  } catch (err) {
+    ausgabe.innerText = "Fehler beim Abruf: " + err.message;
+  }
+}
